@@ -1,3 +1,5 @@
+:syntax enable
+
 :set scrolloff=8
 :set number
 
