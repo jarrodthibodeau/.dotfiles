@@ -16,6 +16,7 @@ Plug 'pangloss/vim-javascript' " JS support
 Plug 'leafgarland/typescript-vim' " TS syntax
 Plug 'maxmellon/vim-jsx-pretty' " JS and JSX syntax
 Plug 'jparise/vim-graphql' " GQL syntax
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 " Enable syntax highlighting
