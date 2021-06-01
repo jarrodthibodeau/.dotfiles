@@ -17,7 +17,8 @@ Plug 'leafgarland/typescript-vim' " TS syntax
 Plug 'maxmellon/vim-jsx-pretty' " JS and JSX syntax
 Plug 'jparise/vim-graphql' " GQL syntax
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'sbdchd/neoformat'
+Plug 'sbdchd/neoformat',
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 " Enable syntax highlighting
@@ -44,6 +45,19 @@ set termguicolors
 " Setting leader to space
 let mapleader = " "
 
+"silent means nothing, leader means whatever mapleader is"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" CoC GoTo Navigation mappings
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 " n - normal mode
 " nore - no recursive execution
 " map - map A -> B
@@ -58,3 +72,6 @@ nnoremap <C-p> :GFiles<CR>
 
 " Fuzzy find all project files via <space><p><f>
 nnoremap <leader>pf :Files<CR>
+
+" Open up git status via vim fugitive
+nmap <leader>gs :G<CR>
