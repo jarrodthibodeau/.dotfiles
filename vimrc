@@ -42,6 +42,7 @@ set scrolloff=8
 set termguicolors
 " Setting the color scheme of the editor
 :colorscheme gruvbox
+set background=dark
 
 " Setting leader to space
 let mapleader = " "
