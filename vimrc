@@ -19,6 +19,7 @@ Plug 'jparise/vim-graphql' " GQL syntax
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sbdchd/neoformat',
 Plug 'tpope/vim-fugitive'
+Plug 'neoclide/coc-eslint'
 call plug#end()
 
 " Enable syntax highlighting
