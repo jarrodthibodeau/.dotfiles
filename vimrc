@@ -20,6 +20,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sbdchd/neoformat',
 Plug 'tpope/vim-fugitive'
 Plug 'neoclide/coc-eslint'
+Plug 'vim-airline/vim-airline'
 call plug#end()
 
 " Enable syntax highlighting
