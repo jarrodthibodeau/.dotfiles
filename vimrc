@@ -78,3 +78,6 @@ nnoremap <leader>pf :Files<CR>
 
 " Open up git status via vim fugitive
 nmap <leader>gs :G<CR>
+
+" Adding ESC functionality to terminal mode in nvim
+tnoremap <Esc> <C-\><C-N>
