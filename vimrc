@@ -9,8 +9,10 @@ endif
 " - For Neovim: stdpath('data') . '/plugged/'
 " Starts the process of installing plugins
 call plug#begin('~/.vim/plugged')
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'morhetz/gruvbox'
 Plug 'pangloss/vim-javascript' " JS support
 Plug 'leafgarland/typescript-vim' " TS syntax
@@ -71,10 +73,13 @@ nnoremap <leader>pv :Vex<CR>
 nnoremap <leader><CR> :so ~/.dotfiles/vimrc<CR>
 
 " Set Ctrp-P to Fuzzy find all source control files
-nnoremap <C-p> :GFiles<CR>
+nnoremap <C-p> :lua require('telescope.builtin').git_files()<CR>
 
 " Fuzzy find all project files via <space><p><f>
-nnoremap <leader>pf :Files<CR>
+nnoremap <Leader>pf :lua require('telescope.builtin').find_files()<CR>
+
+" Find instances based on text input
+nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
 
 " Open up git status via vim fugitive
 nmap <leader>gs :G<CR>
