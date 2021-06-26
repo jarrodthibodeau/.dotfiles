@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Creating directory for nvim config
+echo "Executing initialization script for dotfiles"
+mkdir -p ~/.config/nvim
+mkdir -p ~/.config/nvim/lua
+mkdir -p ~/.config/nvim/lua/jzt
+mkdir -p ~/.config/nvim/plugin
+mkdir -p ~/.config/nvim/after/plugin
+
+# link errthing
+# finds all vim and lua files and links anything
+# in dotfiles to its respective nvim life
+for f in `find . -regex ".*\.vim$\|.*\.lua$"`; do 
+    echo "$f"
+    rm -rf ~/.config/nvim/$f 
+    ln -s ~/.dotfiles/$f ~/.config/nvim/$f
+done

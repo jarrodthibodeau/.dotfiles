@@ -25,6 +25,8 @@ Plug 'neoclide/coc-eslint'
 Plug 'vim-airline/vim-airline'
 call plug#end()
 
+lua require("jzt")
+
 " Enable syntax highlighting
 :syntax enable
 
@@ -70,7 +72,7 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <leader>pv :Vex<CR>
 
 " <space><enter> will resrouce the vimrc to accept new changes
-nnoremap <leader><CR> :so ~/.dotfiles/vimrc<CR>
+nnoremap <leader><CR> :so ~/.config/nvim/init.vim<CR>
 
 " Set Ctrp-P to Fuzzy find all source control files
 nnoremap <C-p> :lua require('telescope.builtin').git_files()<CR>
