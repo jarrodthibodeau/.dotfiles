@@ -9,6 +9,7 @@ endif
 " - For Neovim: stdpath('data') . '/plugged/'
 " Starts the process of installing plugins
 call plug#begin('~/.vim/plugged')
+Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -18,14 +19,80 @@ Plug 'pangloss/vim-javascript' " JS support
 Plug 'leafgarland/typescript-vim' " TS syntax
 Plug 'maxmellon/vim-jsx-pretty' " JS and JSX syntax
 Plug 'jparise/vim-graphql' " GQL syntax
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'sbdchd/neoformat',
 Plug 'tpope/vim-fugitive'
-Plug 'neoclide/coc-eslint'
 Plug 'vim-airline/vim-airline'
+
+Plug 'hrsh7th/nvim-cmp' " This and next two are for LSP autocomplete
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'L3MON4D3/LuaSnip'
 call plug#end()
 
 lua require("jzt")
+
+lua << EOF
+
+local function on_attach()
+    -- Only because The Primeagen has this really...
+end
+
+require'jzt'
+require'lspconfig'.tsserver.setup{ on_attach=on_attach }
+
+-- Config below can be found at https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
+
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menuone,noselect'
+
+-- luasnip setup
+local luasnip = require 'luasnip'
+
+-- nvim-cmp setup
+local cmp = require 'cmp'
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body)
+    end,
+  },
+  mapping = {
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.close(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = function(fallback)
+      if vim.fn.pumvisible() == 1 then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
+      elseif luasnip.expand_or_jumpable() then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-expand-or-jump', true, true, true), '')
+      else
+        fallback()
+      end
+    end,
+    ['<S-Tab>'] = function(fallback)
+      if vim.fn.pumvisible() == 1 then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
+      elseif luasnip.jumpable(-1) then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>luasnip-jump-prev', true, true, true), '')
+      else
+        fallback()
+      end
+    end,
+  },
+  sources = {
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' },
+  },
+}
+EOF
+
 
 " Enable syntax highlighting
 :syntax enable
@@ -54,16 +121,16 @@ let mapleader = " "
 
 "silent means nothing, leader means whatever mapleader is"
 
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" neovim-lsp navigation mappings
+nnoremap <silent> gd :lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD :lua vim.lsp.buf.declaration()<CR>
 
-" CoC GoTo Navigation mappings
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" neomvim-lsp diagnostic mappings 
+nnoremap <silent> <leader>e :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <silent> [d :lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> ]d :lua vim.lsp.diagnostic.goto_next()<CR>
+
+
 
 " n - normal mode
 " nore - no recursive execution
@@ -88,3 +155,10 @@ nmap <leader>gs :G<CR>
 
 " Adding ESC functionality to terminal mode in nvim
 tnoremap <Esc> <C-\><C-N>
+
+
+" Run Neoformat on save
+augroup fmt
+  autocmd!
+  autocmd BufWrite * undojoin | Neoformat
+augroup END
