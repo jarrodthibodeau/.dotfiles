@@ -40,6 +40,9 @@ end
 require'jzt'
 require'lspconfig'.tsserver.setup{ on_attach=on_attach }
 
+
+-- NVIM CMP
+
 -- Config below can be found at https://github.com/neovim/nvim-lspconfig/wiki/Autocompletion
 
 -- Set completeopt to have a better completion experience
@@ -91,6 +94,8 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+-- END NVIM-CMP
 EOF
 
 
@@ -157,8 +162,13 @@ nmap <leader>gs :G<CR>
 tnoremap <Esc> <C-\><C-N>
 
 
+"" NEOFORMAT
+let g:neoformat_enabled_javascript = ['prettier-eslint', 'eslint_d', 'prettier']
+let g:neoformat_enabled_typescript = ['prettier-eslint', 'eslint_d', 'prettier']
+
 " Run Neoformat on save
 augroup fmt
   autocmd!
   autocmd BufWrite * undojoin | Neoformat
 augroup END
+"" END NEOFORMAT
