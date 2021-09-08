@@ -93,7 +93,6 @@ tnoremap <Esc> <C-\><C-N>
 
 
 "" NEOFORMAT
-
 " Run Neoformat on save
 augroup fmt
   autocmd!
