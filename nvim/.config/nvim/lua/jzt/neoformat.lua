@@ -1,3 +1,4 @@
-neoformat_enabled_javascript = {'prettier-eslint', 'eslint_d', 'prettier'}
-neoformat_enabled_typescript = {'prettier-eslint', 'eslint_d', 'prettier'}
+vim.g["neoformat_enabled_javascript"] = {'eslint_d', 'prettier-eslint', 'prettier'}
+vim.g["neoformat_enabled_typescript"] = {'eslint_d', 'prettier-eslint', 'prettier'}
+vim.g["neoformat_enabled_typescriptreact"] = {'eslint_d', 'prettier-eslint', 'prettier'}
 
