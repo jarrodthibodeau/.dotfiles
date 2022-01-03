@@ -2,6 +2,7 @@ local function on_attach()
     -- Only because The Primeagen has this really...
 end
 
+require "lspconfig".pyright.setup {on_attach = on_attach}
 require "lspconfig".tsserver.setup {on_attach = on_attach}
 require "lspconfig".diagnosticls.setup {
     on_attach = on_attach,
