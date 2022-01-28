@@ -3,6 +3,8 @@ local function on_attach()
 end
 
 require "lspconfig".pyright.setup {on_attach = on_attach}
+require "lspconfig".gopls.setup {on_attach = on_attach}
+>>>>>>> Stashed changes
 require "lspconfig".tsserver.setup {on_attach = on_attach}
 require "lspconfig".diagnosticls.setup {
     on_attach = on_attach,
