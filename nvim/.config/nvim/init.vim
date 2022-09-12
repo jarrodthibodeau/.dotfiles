@@ -19,9 +19,9 @@ Plug 'pangloss/vim-javascript' " JS support
 Plug 'leafgarland/typescript-vim' " TS syntax
 Plug 'maxmellon/vim-jsx-pretty' " JS and JSX syntax
 Plug 'jparise/vim-graphql' " GQL syntax
-Plug 'sbdchd/neoformat',
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
+Plug 'jose-elias-alvarez/null-ls.nvim' " LSP specific stuff for diagnostics, formatting etc
 
 Plug 'hrsh7th/nvim-cmp' " This and next three are for LSP autocomplete
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -92,12 +92,3 @@ nmap <leader>gs :G<CR>
 
 " Adding ESC functionality to terminal mode in nvim
 tnoremap <Esc> <C-\><C-N>
-
-
-"" NEOFORMAT
-" Run Neoformat on save
-augroup fmt
-  autocmd!
-  autocmd BufWrite * undojoin | Neoformat
-augroup END
-"" END NEOFORMAT

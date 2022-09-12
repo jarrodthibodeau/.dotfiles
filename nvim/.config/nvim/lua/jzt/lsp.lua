@@ -1,50 +1,35 @@
+-- null-ls specific configuration
+
+-- Formatting on save and initial setup!
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+require "null-ls".setup({
+    on_attach = function(client, bufnr)
+        if client.supports_method("textDocument/formatting") then
+            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                group = augroup,
+                buffer = bufnr,
+                callback = function()
+                    vim.lsp.buf.formatting_sync()
+                end,
+            })
+        end
+    end,
+    sources = {
+      require "null-ls".builtins.formatting.stylua,
+      require "null-ls".builtins.formatting.prettierd,
+      require "null-ls".builtins.diagnostics.eslint_d,
+      require "null-ls".builtins.diagnostics.tsc,
+      require "null-ls".builtins.diagnostics.codespell,
+    },
+})
+
+
+
 local function on_attach()
     -- Only because The Primeagen has this really...
 end
 
-require "lspconfig".pyright.setup {on_attach = on_attach}
-require "lspconfig".gopls.setup {on_attach = on_attach}
-require "lspconfig".tsserver.setup {on_attach = on_attach}
-require "lspconfig".diagnosticls.setup {
-    on_attach = on_attach,
-    filetypes = {"javascript", "typescript", "javascriptreact", "typescriptreact"},
-    init_options = {
-        linters = {
-            eslint = {
-                command = "eslint_d",
-                rootPatterns = {".git"},
-                debounce = 100,
-                args = {
-                    "--stdin",
-                    "--stdin-filename",
-                    "%filepath",
-                    "--format",
-                    "json"
-                },
-                sourceName = "eslint_d",
-                parseJson = {
-                    errorsRoot = "[0].messages",
-                    line = "line",
-                    column = "column",
-                    endLine = "endLine",
-                    endColumn = "endColumn",
-                    message = "[eslint]${message} [${ruleId}]",
-                    security = "severity"
-                },
-                securities = {
-                    [2] = "error",
-                    [1] = "warning"
-                }
-            }
-        },
-        filetypes = {
-            javascript = "eslint",
-            typescript = "eslint",
-            javascriptreact = "eslint",
-            typescriptreact = "eslint"
-        }
-    }
-}
 
 -- NVIM CMP
 
