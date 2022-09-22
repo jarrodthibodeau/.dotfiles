@@ -25,8 +25,11 @@ Plug 'jose-elias-alvarez/null-ls.nvim' " LSP specific stuff for diagnostics, for
 
 Plug 'hrsh7th/nvim-cmp' " This and next three are for LSP autocomplete
 Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'L3MON4D3/LuaSnip'
+
+" vsnip uage bby
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " Treesitter bby
 call plug#end()
