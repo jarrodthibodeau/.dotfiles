@@ -42,7 +42,7 @@ lsp.format_on_save({
         timeout_ms = 10000,
     },
     servers = {
-        ['tsserver'] = { 'javascript', 'typescript', 'typescriptreact' },
+        ['tsserver'] = { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
         ['lua_ls'] = { 'lua' }
     }
 })
