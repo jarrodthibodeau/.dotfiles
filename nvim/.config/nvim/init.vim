@@ -21,7 +21,9 @@ Plug 'maxmellon/vim-jsx-pretty' " JS and JSX syntax
 Plug 'jparise/vim-graphql' " GQL syntax
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
-Plug 'jose-elias-alvarez/null-ls.nvim' " LSP specific stuff for diagnostics, formatting etc
+Plug 'VonHeikemen/lsp-zero.nvim', { 'branch': 'v3.x' }
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 
 Plug 'hrsh7th/nvim-cmp' " This and next three are for LSP autocomplete
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -39,7 +41,7 @@ lua require("jzt")
 " Enable syntax highlighting
 :syntax enable
 
-" Set scrolling offset to 8 lines 
+" Set scrolling offset to 8 lines
 set scrolloff=8
 
 " Add numbers to the lines
@@ -62,15 +64,6 @@ set background=dark
 let mapleader = " "
 
 "silent means nothing, leader means whatever mapleader is"
-
-" neovim-lsp navigation mappings
-nnoremap <silent> gd :lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> gD :lua vim.lsp.buf.declaration()<CR>
-
-" neovim-lsp diagnostic mappings 
-nnoremap <silent> <leader>e :lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
-nnoremap <silent> [d :lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <silent> ]d :lua vim.lsp.diagnostic.goto_next()<CR>
 
 " n - normal mode
 " nore - no recursive execution
